@@ -1,9 +1,22 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+
+  dependencies {
+    // this plugin
+    classpath 'org.jsonschema2pojo:jsonschema2pojo-gradle-plugin:1.1.2'
+  }
+}
+
 plugins {
     id "java"
     id "checkstyle"
     id "com.google.protobuf" version "0.8.19"
     id "org.kordamp.gradle.project-enforcer" version "0.10.0"
 }
+
+apply plugin: 'jsonschema2pojo'
 
 repositories {
     mavenCentral()
@@ -86,8 +99,18 @@ dependencies {
     implementation ("com.google.firebase:firebase-admin:9.0.0") {
         exclude group: 'com.google.cloud', module: 'google-cloud-firestore'
     }
-    testImplementation "junit:junit:4.13.2"
-    testImplementation "org.mockito:mockito-core:4.+"
+    implementation "junit:junit:4.13.2"
+    implementation "org.mockito:mockito-core:4.+"
+    // Required if generating JSR-303 annotations
+    implementation 'javax.validation:validation-api:1.1.0.CR2'
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.0'
+    // Required if generating Jackson 2 annotations
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.1'
+    // Required if generating JodaTime data types
+    implementation 'joda-time:joda-time:2.2'
+    implementation 'org.hibernate:hibernate-validator:5.4.3.Final'
+    implementation 'javax.el:javax.el-api:2.2.4'
+    implementation 'org.glassfish.web:javax.el:2.2.4'
 }
 
 task copyDependencies(type: Copy) {
@@ -104,3 +127,13 @@ jar {
                 "Class-Path": configurations.runtimeClasspath.files.collect { "lib/$it.name" }.join(" "))
     }
 }
+
+jsonSchema2Pojo {
+  source = files("${project.projectDir}/etoll/EtollPositionJson.json")
+  targetPackage = 'org.traccar.etoll'
+  includeAdditionalProperties = false
+  includeJsr303Annotations = true
+}
+
+checkstyleMain
+    .exclude('org/traccar/etoll/EtollPositionJson.java')

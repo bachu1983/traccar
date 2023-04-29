@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd"
+	logicalFilePath="changelog-4.15">
+
+	<changeSet author="bachu" id="changelog-4.15-etoll9">
+		<createTable tableName="tc_etollpositions">
+			<column name="id" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="positionid" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="packageid" type="INT">
+				<constraints nullable="true" />
+			</column>
+			<column name="errorstatus" type="ENUM('warning','invalidFrame','invalidJson')" />
+			<column name="message"
+				type="VARCHAR(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci">
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+
+		<createTable tableName="tc_etollpackages">
+			<column name="id" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="message"
+				type="VARCHAR(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci">
+				<constraints nullable="true" />
+			</column>
+			<column name="createdate" type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+			<column name="updatedate" type="TIMESTAMP" />
+		</createTable>
+	</changeSet>
+</databaseChangeLog>

@@ -19,9 +19,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.traccar.storage.QueryIgnore;
 import org.traccar.storage.StorageName;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @StorageName("tc_devices")
 public class Device extends GroupedModel implements Disableable {
@@ -239,5 +240,46 @@ public class Device extends GroupedModel implements Disableable {
     public void setOverspeedGeofenceId(long overspeedGeofenceId) {
         this.overspeedGeofenceId = overspeedGeofenceId;
     }
+
+    private Date feeDate;
+
+    private Date createDate;
+
+    private Date resetDate;
+
+    private Date simDate;
+
+    public Date getFeeDate() {
+        return feeDate;
+    }
+
+    public void setFeeDate(Date feeDate) {
+        this.feeDate = feeDate;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getResetDate() {
+        return resetDate;
+    }
+
+    public void setResetDate(Date resetDate) {
+        this.resetDate = resetDate;
+    }
+
+    public Date getSimDate() {
+        return simDate;
+    }
+
+    public void setSimDate(Date simDate) {
+        this.simDate = simDate;
+    }
+
 
 }

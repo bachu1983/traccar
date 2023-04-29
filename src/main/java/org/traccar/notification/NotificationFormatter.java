@@ -16,6 +16,9 @@
  */
 package org.traccar.notification;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import org.apache.velocity.VelocityContext;
 import org.traccar.helper.model.UserUtil;
 import org.traccar.model.Device;
@@ -26,15 +29,20 @@ import org.traccar.model.Position;
 import org.traccar.model.Server;
 import org.traccar.model.User;
 import org.traccar.session.cache.CacheManager;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import org.traccar.storage.Storage;
+import org.traccar.storage.StorageException;
+import org.traccar.storage.query.Columns;
+import org.traccar.storage.query.Condition;
+import org.traccar.storage.query.Request;
 
 @Singleton
 public class NotificationFormatter {
 
     private final CacheManager cacheManager;
     private final TextTemplateFormatter textTemplateFormatter;
+
+    @Inject
+    private Storage storage;
 
     @Inject
     public NotificationFormatter(
@@ -47,6 +55,15 @@ public class NotificationFormatter {
 
         Server server = cacheManager.getServer();
         Device device = cacheManager.getObject(Device.class, event.getDeviceId());
+        if (device == null) {
+            try {
+                device = storage.getObject(Device.class, new Request(
+                        new Columns.All(),
+                        new Condition.Equals("id", event.getDeviceId())));
+            } catch (StorageException e) {
+                device = null;
+            }
+        }
 
         VelocityContext velocityContext = textTemplateFormatter.prepareContext(server, user);
 

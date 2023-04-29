@@ -1,0 +1,80 @@
+#set($tarifBase = 98)
+#set($tarifR1 = 48)
+#set($tarifR2 = 96)
+#set($tarifR3 = 144)
+#set($subject = "Lokalizacja GPS - przedłużenie działania usługi dla urządzenia lub karty telemetrycznej $device.name")
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<style>
+      tr.border-top td {
+        border-top: 1pt solid;
+      }
+    </style>
+</head>
+</head>
+<body style="margin:10px"   >
+<center><img src="http://a.gdzieonjest.pl/logo.png" width="250" style="outline:0;border:0; padding:10px" alt="gdzieonjest.pl"></center></br>
+Dzień dobry,<br/>
+w dniu <b>$dateTool.format("dd/MM/YYYY", $device.feeDate, $locale, $timezone)</b> kończy się okres działania usługi lokalizacji GPS dla urządzenia/karty <b>$device.name</b>.<br/>
+Jeżeli chcesz natychmiast przedłużyć działanie usługi o kolejny rok to skorzystaj z poniższego linku. Bezpieczeństwo transakcji zapewnia operator płatności elektronicznych PayU.
+<br/>
+<center><table class="table" style="max-width:600px">
+  <thead>
+    <tr>
+      <th scope="col">Nazwa usługi</th>
+      <th scope="col">Kwota</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="border-top">
+      <td>Dostęp do systemu i/lub utrzymanie karty telemetrycznej przez kolejny rok</td>
+      <td><b><center>$tarifBase PLN</center></b></td>
+    </tr>
+    <tr>
+    #if ($event.paymentAmount == $tarifR1 + $tarifBase) 
+        #set($tarifR2 = 0)
+        #set($tarifR3 = 0)
+      <td><u>Roaming 33%</u> czasu miesięcznie w UE (odnowienie następuje 8 dnia każdego miesiąca)</td>
+      <td><b><center>$tarifR1 PLN</center></b></td>
+    #elseif ($event.paymentAmount == $tarifR2 + $tarifBase)
+        #set($tarifR1 = 0)
+        #set($tarifR3 = 0)
+      <td><u>Roaming 66%</u> czasu w UE (odnowienie następuje 8 dnia każdego miesiąca)</td>
+      <td><b><center>$tarifR2 PLN</center></b></td>
+    #elseif ($event.paymentAmount == $tarifR3 + $tarifBase)
+        #set($tarifR1 = 0)
+        #set($tarifR2 = 0)
+      <td><u>Roaming 100%</u> czasu w UE</td>
+      <td><b><center>$tarifR3 PLN</center></b></td>
+    #else
+        #set($tarifR1 = 0)
+        #set($tarifR2 = 0)
+        #set($tarifR3 = 0)
+    #end
+    #if (!($tarifR1 == 0 && $tarifR2 == 0 && $tarifR3 == 0))
+    </tr>
+    <tr class="border-top">
+      <td>Razem</td>
+      #set($total = $tarifBase + $tarifR1 + $tarifR2 + $tarifR3)
+      <td><b><center>$total PLN</center></b></td>
+    </tr>
+    #end
+  </tbody>
+</table></center>
+<br/>
+<center><a href="$event.paymentUrl"><img src="http://static.payu.com/pl/standard/partners/buttons/payu_account_button_long_03.png" width="250" style="outline:0;border:0; padding:10px" alt="Płacę teraz z PayU">
+</a></center>
+<br/>
+Brak płatności w terminie może się wiązać z deaktywacją karty telemetrycznej i kosztami wydania oraz wysłania nowej karty SIM (koszt z przesyłką to 35 zł).
+<br/>
+W sprawie faktur lub dodatkowych usług proszę o kontakt pod adresem kontakt@gdzieonjest.pl
+<br/>
+Pozdrawiamy,<br/>
+Zespół gdzieonjest.pl<br/>
+
+[$device.phone/$device.uniqueId]
+</body>
+</html>

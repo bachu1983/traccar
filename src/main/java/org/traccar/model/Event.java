@@ -15,9 +15,10 @@
  */
 package org.traccar.model;
 
-import org.traccar.storage.StorageName;
-
 import java.util.Date;
+
+import org.traccar.storage.QueryIgnore;
+import org.traccar.storage.StorageName;
 
 @StorageName("tc_events")
 public class Event extends Message {
@@ -51,7 +52,7 @@ public class Event extends Message {
     public static final String TYPE_DEVICE_STOPPED = "deviceStopped";
 
     public static final String TYPE_DEVICE_OVERSPEED = "deviceOverspeed";
-    public static final String TYPE_DEVICE_FUEL_DROP = "deviceFuelDrop";
+    public static final String TYPE_DEVICE_FUEL_DROP = "fuelDrop";
     public static final String TYPE_DEVICE_FUEL_INCREASE = "deviceFuelIncrease";
 
     public static final String TYPE_GEOFENCE_ENTER = "geofenceEnter";
@@ -66,6 +67,12 @@ public class Event extends Message {
     public static final String TYPE_TEXT_MESSAGE = "textMessage";
     public static final String TYPE_DRIVER_CHANGED = "driverChanged";
     public static final String TYPE_MEDIA = "media";
+
+    public static final String TYPE_PAYMENT_TIME = "payment";
+
+    public static final String TYPE_DEVICE_FUEL_FULL = "fuelFull";
+
+    public static final String TYPE_DEVICE_FUEL_NOT_FULL = "fuelNotFull";
 
     private Date eventTime;
 
@@ -105,6 +112,30 @@ public class Event extends Message {
 
     public void setMaintenanceId(long maintenanceId) {
         this.maintenanceId = maintenanceId;
+    }
+
+    private long paymentAmount = -1;
+
+    @QueryIgnore
+    public long getPaymentAmount() {
+        return paymentAmount;
+    }
+
+    @QueryIgnore
+    public void setPaymentAmount(long paymentAmount) {
+        this.paymentAmount = paymentAmount;
+    }
+
+    private String paymentUrl = "";
+
+    @QueryIgnore
+    public String getPaymentUrl() {
+        return paymentUrl;
+    }
+
+    @QueryIgnore
+    public void setPaymentUrl(String paymentUrl) {
+        this.paymentUrl = paymentUrl;
     }
 
 }

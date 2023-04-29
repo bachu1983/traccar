@@ -1576,4 +1576,56 @@ public final class Keys {
             "broadcast.port",
             List.of(KeyType.CONFIG));
 
+    public static final ConfigKey<String> PAY_CONFIRM_ADDRESS = new StringConfigKey(
+            "pay.confirmPayAddress",
+            List.of(KeyType.CONFIG));
+
+    public static final ConfigKey<Integer> PAY_HOW_MANY_DAYS_BEFORE_FEE = new IntegerConfigKey(
+            "pay.notify.howManyDaysBeforeFee",
+            List.of(KeyType.CONFIG));
+
+    public static final ConfigKey<Integer> PAY_FREQUENCY_DAYS = new IntegerConfigKey(
+            "pay.notify.frequencyDays",
+            List.of(KeyType.CONFIG));
+
+    public static final ConfigKey<Integer> PAY_ANTYSPAM_DELAY = new IntegerConfigKey(
+            "pay.antySpamDelay",
+            List.of(KeyType.CONFIG));
+
+    public static final ConfigKey<String> PAY_TO_PAY_MESSAGE = new StringConfigKey(
+            "pay.toPayMessage",
+            List.of(KeyType.CONFIG));
+
+    public static final ConfigKey<Integer> PAY_HOW_MANY_DAYS_AFTER_FEE = new IntegerConfigKey(
+            "pay.notify.howManyDaysAfterFee",
+            List.of(KeyType.CONFIG));
+
+    public static final ConfigKey<Long> PAY_TARIF_BASE = new LongConfigKey(
+            "pay.tarifBase",
+            List.of(KeyType.CONFIG));
+
+    public static final ConfigKey<String> PAY_WEB_URL = new StringConfigKey(
+            "web.url",
+            List.of(KeyType.CONFIG));
+
+    public static final ConfigKey<Boolean> PAY_BLOCK_IF_TIME = new BooleanConfigKey(
+            "pay.blockIfTime",
+            List.of(KeyType.CONFIG));
+
+    public static final ConfigKey<String> PAY_BLOCKED_MESSAGE = new StringConfigKey(
+            "pay.blockedMessage",
+            List.of(KeyType.CONFIG));
+
+    public static final ConfigKey<Boolean> ETOLL_GEOFENCE = new BooleanConfigKey(
+            "etoll.geofence",
+            List.of(KeyType.CONFIG));
+
+    public static final ConfigSuffix<Boolean> FREQUENCY_ENABLED = new BooleanConfigSuffix(
+            "frequency",
+            List.of(KeyType.CONFIG));
+
+    public static final ConfigSuffix<String> FREQUENCY_COMMAND = new StringConfigSuffix(
+            "frequency.command",
+            List.of(KeyType.CONFIG));
+
 }

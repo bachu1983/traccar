@@ -15,14 +15,8 @@
  */
 package org.traccar;
 
-import com.google.inject.Injector;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelInboundHandler;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOutboundHandler;
-import io.netty.channel.ChannelPipeline;
-import io.netty.handler.timeout.IdleStateHandler;
+import java.util.Map;
+
 import org.traccar.config.Config;
 import org.traccar.config.Keys;
 import org.traccar.handler.ComputedAttributesHandler;
@@ -53,7 +47,15 @@ import org.traccar.handler.events.MediaEventHandler;
 import org.traccar.handler.events.MotionEventHandler;
 import org.traccar.handler.events.OverspeedEventHandler;
 
-import java.util.Map;
+import com.google.inject.Injector;
+
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
+import io.netty.channel.ChannelInboundHandler;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOutboundHandler;
+import io.netty.channel.ChannelPipeline;
+import io.netty.handler.timeout.IdleStateHandler;
 
 public abstract class BasePipelineFactory extends ChannelInitializer<Channel> {
 
@@ -134,6 +136,7 @@ public abstract class BasePipelineFactory extends ChannelInitializer<Channel> {
                 DistanceHandler.class,
                 RemoteAddressHandler.class,
                 FilterHandler.class,
+                EtollDataHandler.class,
                 GeocoderHandler.class,
                 SpeedLimitHandler.class,
                 MotionHandler.class,

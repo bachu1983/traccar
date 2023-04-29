@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd"
+  logicalFilePath="changelog-4.13">
+
+  <changeSet author="bachu" id="changelog-4.13-devicecol">
+    <preConditions onFail="HALT">
+        <tableExists tableName="tc_devices" />
+    </preConditions>
+    <addUniqueConstraint tableName="tc_devices" columnNames="phone" constraintName="uk_device_phone" />
+    <addNotNullConstraint tableName="tc_devices" columnName="phone" columnDataType="varchar(128)"/>
+  </changeSet>
+</databaseChangeLog>

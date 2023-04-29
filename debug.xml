@@ -5,8 +5,19 @@
 <properties>
 
     <entry key='config.default'>./setup/default.xml</entry>
+    <entry key='notificator.types'>web,mail</entry>
+    <entry key='notificator.firebase.key'>AAAAm5lUiyA:APA91bH7djHGt_C51p9IdaqzI5KlUfPNGuFUqu_exnWnI_hn6OURFQYxMRskPiQHQG9fW6FDy-QM_DXpKvZEcJhDC6FL46RTKfgQV7SKTvjvsX4R7kMr_iKfYurQbdR1NIUz5ZI3MkBp</entry>
+    <entry key='notificator.firebase.serviceAccount'>AAAAm5lUiyA:APA91bH7djHGt_C51p9IdaqzI5KlUfPNGuFUqu_exnWnI_hn6OURFQYxMRskPiQHQG9fW6FDy-QM_DXpKvZEcJhDC6FL46RTKfgQV7SKTvjvsX4R7kMr_iKfYurQbdR1NIUz5ZI3MkBp</entry>
 
-    <entry key='web.path'>./traccar-web/web</entry>
+    <entry key='logger.level'>info</entry>
+    
+    <!-- <entry key='status.timeout'>600</entry> -->
+    <entry key='server.timeout'>7000</entry>
+    <!--  <entry key='database.saveEmpty'>true</entry>-->
+    <entry key='sinotrack.activechannel.command1'>sleep0000 0</entry>
+    <entry key='sinotrack.activechannel.command2'>sleep0000 1</entry>
+
+    <entry key='web.path'>../gps/gps-web/web</entry>
     <entry key='web.debug'>true</entry>
     <entry key='web.console'>true</entry>
 
@@ -15,14 +26,77 @@
     <entry key='logger.console'>true</entry>
     <entry key='logger.queries'>false</entry>
 
-    <entry key='mail.debug'>true</entry>
+    <entry key='mail.debug'>false</entry>
 
-    <entry key='database.driver'>org.h2.Driver</entry>
-    <entry key='database.url'>jdbc:h2:./target/database</entry>
-    <entry key='database.user'>sa</entry>
-    <entry key='database.password'></entry>
+   <entry key='database.driver'>com.mysql.jdbc.Driver</entry>
+   <entry key='database.url'>jdbc:mysql://localhost/traccar5?allowMultiQueries=true&amp;autoReconnect=true&amp;useUnicode=yes&amp;characterEncoding=UTF-8&amp;</entry>
+   <entry key='database.user'>traccar</entry>
+   <entry key='database.password'>janosik83</entry>
 
     <entry key='atrack.custom'>true</entry>
     <entry key='intellitrac.port'>6037</entry>
+    
+    <entry key='mail.smtp.host'>localhost</entry>
+    <entry key='mail.smtp.port'>25</entry>
+    <entry key='mail.smtp.starttls.enable'>false</entry>
+    <entry key='mail.smtp.from'>maciej</entry>
+    <entry key='mail.smtp.auth'>false</entry>
+    <entry key='mail.smtp.username'>powiadomienia@gdzieonjest.pl</entry>
+    <entry key='mail.smtp.password'>Janosik1983</entry> 
 
+    <entry key='web.url'>http://localhost:8082</entry>
+    <entry key='pay.confirmPayAddress'>http://5258f4e83656.ngrok.io/api/confirm</entry>
+    <entry key='pay.tarifBase'>98</entry> <!-- Kwota musi być inna od taryf R1, R2, R3 -->
+    <entry key='pay.tarifR1'>48</entry>
+    <entry key='pay.tarifR2'>96</entry>
+    <entry key='pay.tarifR3'>144</entry>
+    <entry key='filter.ifNoRoaming'>true</entry>
+
+
+	<entry key='h02.frequency'>true</entry>
+	<entry key='h02.ignitionOnFrequency.frequency.command'>8050000 0%</entry>
+	<entry key='h02.ignitionOffFrequency.frequency.command'>8090000 0%</entry>
+	<entry key='h02.restart.frequency.command'></entry>
+	<entry key='gt06.frequency'>true</entry>
+	<entry key='gt06.ignitionOnFrequency.frequency.command'>fix3%s***n234567</entry>
+	<entry key='gt06.ignitionOffFrequency.frequency.command'></entry>
+	<entry key='gt06.restart.frequency.command'></entry>
+	<entry key='teltonica.frequency'>true</entry>
+	<entry key='teltonica.ignitionOnFrequency.frequency.command'> on_demand_tracking1</entry>
+	<entry key='teltonica.ignitionOffFrequency.frequency.command'></entry>
+	<entry key='teltonica.frequencyStop.frequency.command'> on_demand_tracking0</entry>
+
+    <entry key='pay.blockedMessage'>zablokowany, użyj ikony koszyka aby zapłacić</entry>
+    <entry key='pay.toPayMessage'>użyj ikony koszyka aby zapłacić</entry>
+    <entry key='pay.blockIfTime'>true</entry>
+    <entry key='pay.notify.howManyDaysAfterFee'>0</entry><!-- ile dni po terminie płatności wysłać powiadomienie. Docelowo 0 -->
+    <entry key='pay.notify.howManyDaysBeforeFee'>100</entry><!-- ile dni przed terminem wysyłać -->
+    <entry key='pay.notify.frequencyDays'>5</entry><!-- co ile dni -->
+    <entry key='alternativeSmsCommunication'>true</entry>
+
+    <entry key='geocoder.enable'>true</entry>
+    <entry key='geocoder.onRequest'>true</entry>
+    <entry key='geocoder.ignorePositions'>true</entry>
+    <entry key='geocoder.format'>%r %h, %p %t, %c</entry>
+    <entry key='geocoder.type'>google</entry>
+    <entry key='geocoder.key'>52fcd75a608243a38982bec22550764f</entry>
+    <entry key='geocoder.url'>https://api.opencagedata.com/geocode/v1</entry>
+    <entry key='geocoder.reuseDistance'>100</entry>
+
+	<entry key='filter.enable'>true</entry>
+    <entry key='filter.future'>86400</entry>
+    <entry key='filter.maxSpeed'>130</entry>
+    <!-- <entry key='filter.distance'>5</entry> -->
+    <!-- <entry key='filter.skipLimit'>300</entry> Ignition co 5 minut więc nie ma sensu-->
+    <!--  <entry key='filter.duplicate'>true</entry>-->
+    <entry key='filter.skipAttributes.enable'>true</entry>
+    <entry key='filter.skipAttributes'>alarm,ignition,batteryLevel</entry>
+    <entry key='processing.copyAttributes.enable'>true</entry>
+    <entry key='processing.copyAttributes'>ignition</entry>
+    <entry key='processing.remoteAddress.enable'>false</entry>
+    <entry key='event.overspeed.notRepeat'>true</entry>
+
+    <entry key='processing.computedAttributes.deviceAttributes'>true</entry>
+
+    <entry key='etoll.geofence'>true</entry>
 </properties>
